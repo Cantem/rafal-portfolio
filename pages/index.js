@@ -32,12 +32,12 @@ const Home = () => (
             </li>
             <li className="nav-item mr-3">
               <a className="nav-link" href="#">
-                Cv
+                CV
               </a>
             </li>
             <li className="nav-item mr-3">
               <a className="nav-link" href="#">
-                Ask me
+                Get In Touch
               </a>
             </li>
           </ul>
@@ -64,9 +64,7 @@ const Home = () => (
     <section className="fj-hero">
       <div className="fj-hero-wrapper row">
         <div className="hero-left col-md-6">
-          <h1 className="white hero-title">
-            Hey, I'm Rafal. A full stack developer.
-          </h1>
+          <h1 className="white hero-title">Rafal. A Full Stack Developer.</h1>
           <h2 className="white hero-subtitle">
             Check my portfolio and video tutorials
           </h2>
@@ -153,7 +151,7 @@ const Home = () => (
       <section className="section-title">
         <div className="px-2">
           <div className="pt-5 pb-4">
-            <h1>Ask Me</h1>
+            <h1>Get In Touch</h1>
           </div>
         </div>
       </section>
