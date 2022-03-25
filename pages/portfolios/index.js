@@ -1,15 +1,27 @@
-const apiCall = () => {
-  return new Promise((res, rej) => {
-    setTimeout(() => {
-      res({ testingData: "test" });
-    }, 200);
-  });
+import axios from "axios";
+
+const fetchPortfolios = () => {
+  const query = `
+    query Portfolios {
+      portfolios {
+        _id,
+        title,
+        company,
+        companyWebsite
+        location
+        jobTitle
+        description
+      }
+    }`;
+  return axios
+    .post("http://localhost:3000/graphql", { query })
+    .then(({ data: graph }) => graph.data)
+    .then((data) => data.portfolios);
 };
 
-const Portfolios = (props) => {
+const Portfolios = ({ portfolios }) => {
   return (
     <>
-      {props.testingData}
       <section className="section-title">
         <div className="px-2">
           <div className="pt-5 pb-4">
@@ -17,6 +29,7 @@ const Portfolios = (props) => {
           </div>
         </div>
       </section>
+      {JSON.stringify(portfolios)}
       <section className="pb-5">
         <div className="row">
           <div className="col-md-4">
@@ -71,9 +84,9 @@ const Portfolios = (props) => {
 };
 
 Portfolios.getInitialProps = async () => {
-  const data = await apiCall();
+  const portfolios = await fetchPortfolios();
 
-  return { ...data };
+  return { portfolios };
 };
 
 export default Portfolios;
