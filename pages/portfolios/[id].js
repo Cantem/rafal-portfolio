@@ -2,8 +2,8 @@ import axios from "axios";
 
 const fetchPortfolioById = async (id) => {
   const query = `
-    query Portfolio {
-      portfolio (id: "${id}") {
+    query Portfolio($id: ID) {
+      portfolio (id: $id) {
         _id,
         title,
         company,
@@ -15,11 +15,11 @@ const fetchPortfolioById = async (id) => {
         endDate
       }
     }`;
-  const { data: graph } = await axios.post("http://localhost:3000/graphql", {
-    query,
-  });
-  const portfolioData = graph.data;
-  return portfolioData.portfolio;
+  const variables = { id };
+  return axios
+    .post("http://localhost:3000/graphql", { query, variables })
+    .then(({ data: graph }) => graph.data)
+    .then((data) => data.portfolio);
 };
 
 const PortfolioDetails = ({ portfolio }) => {
