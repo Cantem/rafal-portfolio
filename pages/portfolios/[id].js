@@ -31,7 +31,7 @@ const PortfolioDetails = ({ portfolio }) => {
           <p className="lead">{portfolio.jobTitle}</p>
           <p>
             <a
-              className="btn btn-lg btn-success"
+              className="mr-3 btn btn-primary"
               href={portfolio.companyWebsite}
               target="_blank"
               role="button"
