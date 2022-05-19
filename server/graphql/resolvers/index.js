@@ -57,4 +57,11 @@ exports.portfolioMutations = {
     data.portfolios.push(newPortfolio);
     return newPortfolio;
   },
+  updatePortfolio: (root, { id, input }) => {
+    const index = data.portfolios.findIndex((p) => p._id === id);
+    const currentPortfolio = data.portfolios[index];
+    const updatedPortfolio = { ...currentPortfolio, ...input };
+    data.portfolios[index] = updatedPortfolio;
+    return updatedPortfolio;
+  },
 };
