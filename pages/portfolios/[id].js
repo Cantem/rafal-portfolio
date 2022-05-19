@@ -33,6 +33,7 @@ const PortfolioDetails = ({ portfolio }) => {
             <a
               className="btn btn-lg btn-success"
               href={portfolio.companyWebsite}
+              target="_blank"
               role="button"
             >
               See Company
