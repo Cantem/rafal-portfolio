@@ -3,15 +3,15 @@ const config = require("../config/dev");
 
 require("./models/portfolio");
 
-exports.connect = () => {
-  mongoose.connect(
-    config.DB_URI,
-    {
+const connectDb = async () => {
+  try {
+    await mongoose.connect(config.DB_URI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
-    },
-    () => {
-      console.log("Connected to DB");
-    }
-  );
+    });
+    console.log("Connected to DB");
+  } catch (e) {
+    console.log("Error occured while connecting to MongoDB", e);
+  }
 };
+module.exports = { connectDb };

@@ -13,7 +13,7 @@ const { portfolioTypes } = require("./graphql/types");
 
 // Connect to DB
 const db = require("./db");
-db.connect();
+db.connectDb();
 
 app.prepare().then(() => {
   const server = express();
