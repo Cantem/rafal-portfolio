@@ -1,26 +1,26 @@
-import { useState, useEffect } from "react";
 import axios from "axios";
 import PortfolioCard from "@/components/portfolios/PortfolioCard";
 import Link from "next/link";
-import { useLazyQuery, useMutation } from "@apollo/react-hooks";
+import { useQuery, useMutation } from "@apollo/react-hooks";
 import { GET_PORTFOLIOS, CREATE_PORTFOLIO } from "@/apollo/queries";
 import withApollo from "@/hoc/withApollo";
 import { getDataFromTree } from "@apollo/react-ssr";
 
-const graphDeletePortfolio = (id) => {
+const graphDeletePortfolio = async (id) => {
   const query = `
     mutation DeletePortfolio {
       deletePortfolio(id: "${id}")
     }
   `;
 
-  return axios
-    .post("http://localhost:3000/graphql", { query })
-    .then(({ data: graph }) => graph.data)
-    .then((data) => data.deletePortfolio);
+  const { data: graph } = await axios.post("http://localhost:3000/graphql", {
+    query,
+  });
+  const data_1 = graph.data;
+  return data_1.deletePortfolio;
 };
 
-const graphUpdatePortfolio = (id) => {
+const graphUpdatePortfolio = async (id) => {
   const query = `
     mutation UpdatePortfolio {
       updatePortfolio(id: "${id}",input: {
@@ -44,15 +44,16 @@ const graphUpdatePortfolio = (id) => {
         endDate
       }
     }`;
-  return axios
-    .post("http://localhost:3000/graphql", { query })
-    .then(({ data: graph }) => graph.data)
-    .then((data) => data.updatePortfolio);
+  const { data: graph } = await axios.post("http://localhost:3000/graphql", {
+    query,
+  });
+  const graphqlData = graph.data;
+  return graphqlData.updatePortfolio;
 };
 
 const Portfolios = () => {
-  const [portfolios, setPortfolios] = useState([]);
-  const [getPortfolios, { loading, data }] = useLazyQuery(GET_PORTFOLIOS);
+  const { data } = useQuery(GET_PORTFOLIOS);
+
   const [createPortfolio] = useMutation(CREATE_PORTFOLIO, {
     update(cache, { data: { createPortfolio } }) {
       const { portfolios } = cache.readQuery({ query: GET_PORTFOLIOS });
@@ -63,42 +64,15 @@ const Portfolios = () => {
     },
   });
 
-  // const onPortfolioCreated = (dataC) => setPortfolios([...portfolios, dataC.createPortfolio])
-
-  // const [createPortfolio] = useMutation(CREATE_PORTFOLIO, {onCompleted: onPortfolioCreated});
-
-  useEffect(() => {
-    getPortfolios();
-  }, []);
-
-  if (
-    data &&
-    data.portfolios.length > 0 &&
-    (portfolios.length === 0 || data.portfolios.length !== portfolios.length)
-  ) {
-    setPortfolios(data.portfolios);
-  }
-
-  if (loading) {
-    return "Loading...";
-  }
-
   const updatePortfolio = async (id) => {
-    const updatedPortfolio = await graphUpdatePortfolio(id);
-    const index = portfolios.findIndex((p) => p._id === id);
-    const newPortfolios = portfolios.slice();
-    newPortfolios[index] = updatedPortfolio;
-    setPortfolios(newPortfolios);
+    await graphUpdatePortfolio(id);
   };
 
   const deletePortfolio = async (id) => {
-    const deletedId = await graphDeletePortfolio(id);
-    const index = portfolios.findIndex((p) => p._id === deletedId);
-    const newPortfolios = portfolios.slice();
-    newPortfolios.splice(index, 1);
-    setPortfolios(newPortfolios);
+    await graphDeletePortfolio(id);
   };
 
+  const portfolios = (data && data.portfolios) || [];
   return (
     <>
       <section className="section-title">
