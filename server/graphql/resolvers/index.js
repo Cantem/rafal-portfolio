@@ -1,29 +1,28 @@
 const Portfolio = require("../../db/models/portfolio");
 
 exports.portfolioQueries = {
-  portfolio: (root, { id }) => {
-    return Portfolio.findById(id);
+  portfolio: (root, { id }, ctx) => {
+    return ctx.models.Portfolio.getById(id);
   },
-  portfolios: () => {
-    return Portfolio.find({});
+  portfolios: (root, args, ctx) => {
+    return ctx.models.Portfolio.getAll();
   },
 };
 
 exports.portfolioMutations = {
-  createPortfolio: async (root, { input }) => {
+  createPortfolio: async (root, { input }, ctx) => {
     const createdPortfolio = await Portfolio.create(input);
     return createdPortfolio;
   },
-  updatePortfolio: async (root, { id, input }) => {
-    const updatedPortfolio = await Portfolio.findOneAndUpdate(
-      { _id: id },
-      input,
-      { new: true }
+  updatePortfolio: async (root, { id, input }, ctx) => {
+    const updatedPortfolio = await ctx.models.Portfolio.findAndUpdate(
+      id,
+      input
     );
     return updatedPortfolio;
   },
-  deletePortfolio: async (root, { id }) => {
-    const deletedPortfolio = await Portfolio.findOneAndRemove({ _id: id });
+  deletePortfolio: async (root, { id }, ctx) => {
+    const deletedPortfolio = await ctx.models.Portfolio.findAndDelete(id);
     return deletedPortfolio._id;
   },
 };
