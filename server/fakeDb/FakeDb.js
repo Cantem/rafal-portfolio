@@ -1,13 +1,13 @@
-const { portfolios } = require("./data");
-const Portfolio = require("../db/models/portfolio");
+import { data } from "./data.js";
+import { Portfolio } from "../db/models/portfolio.js";
 
-class FakeDb {
+export default class FakeDb {
   async clean() {
     await Portfolio.deleteMany({});
   }
 
   async addData() {
-    await Portfolio.create(portfolios);
+    await Portfolio.create(data.portfolios);
   }
 
   async populate() {
@@ -15,5 +15,3 @@ class FakeDb {
     await this.addData();
   }
 }
-
-module.exports = new FakeDb();

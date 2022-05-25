@@ -1,5 +1,6 @@
 {
   "name": "rafal-portfolio",
+  "type": "module",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -13,7 +14,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@apollo/client": "~3.4.0",
+    "@apollo/client": "^3.6.5",
     "@apollo/react-hooks": "^4.0.0",
     "@apollo/react-ssr": "^4.0.0",
     "apollo-boost": "^0.4.9",

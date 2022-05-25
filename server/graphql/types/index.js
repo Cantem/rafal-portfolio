@@ -1,4 +1,4 @@
-const portfolioFields = `
+export const portfolioFields = `
 title: String,
 company: String,
 companyWebsite: String,
@@ -9,7 +9,7 @@ startDate: String,
 endDate: String
 `;
 
-exports.portfolioTypes = `
+export const portfolioTypes = `
 type Portfolio {
   _id: ID,
   ${portfolioFields}

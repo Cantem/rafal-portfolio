@@ -1,4 +1,4 @@
-class Portfolio {
+export class Portfolio {
   constructor(model) {
     // this.Model === Portfolio
     this.Model = model;
@@ -24,5 +24,3 @@ class Portfolio {
     return this.Model.findOneAndRemove({ _id: id });
   }
 }
-
-module.exports = Portfolio;

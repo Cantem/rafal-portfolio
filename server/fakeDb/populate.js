@@ -1,10 +1,12 @@
-const mongoose = require("mongoose");
-const config = require("../config/dev");
-const fakeDb = require("./FakeDb");
+import mongoose from "mongoose";
+import { mongoDbConfig } from "../config/dev.js";
+import FakeDb from "./FakeDb.js";
+
+const fakeDb = new FakeDb();
 
 const populateDb = async () => {
   try {
-    await mongoose.connect(config.DB_URI, {
+    await mongoose.connect(mongoDbConfig.DB_URI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });

@@ -1,11 +1,10 @@
-const mongoose = require("mongoose");
-const config = require("../config/dev");
+import mongoose from "mongoose";
+import { mongoDbConfig } from "../config/dev.js";
+import "./models/portfolio.js";
 
-require("./models/portfolio");
-
-const connectDb = async () => {
+export const connectDb = async () => {
   try {
-    await mongoose.connect(config.DB_URI, {
+    await mongoose.connect(mongoDbConfig.DB_URI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
       useFindAndModify: false,
@@ -15,4 +14,3 @@ const connectDb = async () => {
     console.log("Error occured while connecting to MongoDB", e);
   }
 };
-module.exports = { connectDb };

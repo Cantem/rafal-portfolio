@@ -1,4 +1,4 @@
-const data = {
+export const data = {
   portfolios: [
     {
       title: "Job in Netcentric",
@@ -32,5 +32,3 @@ const data = {
     },
   ],
 };
-
-module.exports = data;

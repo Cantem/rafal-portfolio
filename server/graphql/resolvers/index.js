@@ -1,6 +1,6 @@
-const Portfolio = require("../../db/models/portfolio");
+import { Portfolio } from "../../db/models/portfolio.js";
 
-exports.portfolioQueries = {
+export const portfolioQueries = {
   portfolio: (root, { id }, ctx) => {
     return ctx.models.Portfolio.getById(id);
   },
@@ -9,7 +9,7 @@ exports.portfolioQueries = {
   },
 };
 
-exports.portfolioMutations = {
+export const portfolioMutations = {
   createPortfolio: async (root, { input }, ctx) => {
     const createdPortfolio = await Portfolio.create(input);
     return createdPortfolio;

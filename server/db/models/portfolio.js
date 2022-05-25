@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 
 const portfolioSchema = new Schema({
@@ -13,4 +13,4 @@ const portfolioSchema = new Schema({
   createdAt: { type: Date, default: Date.now },
 });
 
-module.exports = mongoose.model("Portfolio", portfolioSchema);
+export const Portfolio = mongoose.model("Portfolio", portfolioSchema);

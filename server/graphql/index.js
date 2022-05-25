@@ -1,11 +1,10 @@
-const mongoose = require("mongoose");
-const { ApolloServer, gql } = require("apollo-server-express");
+import mongoose from "mongoose";
+import { ApolloServer, gql } from "apollo-server-express";
+import { portfolioQueries, portfolioMutations } from "./resolvers/index.js";
+import { portfolioTypes } from "./types/index.js";
+import { Portfolio } from "./models/Portfolio.js";
 
-const { portfolioQueries, portfolioMutations } = require("./resolvers");
-const { portfolioTypes } = require("./types");
-const Portfolio = require("./models/Portfolio");
-
-exports.createApolloServer = () => {
+export const createApolloServer = () => {
   // Construct a schema, using GRAPHQL schema language
   const typeDefs = gql(`
   ${portfolioTypes}

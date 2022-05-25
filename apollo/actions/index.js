@@ -4,7 +4,7 @@ import {
   CREATE_PORTFOLIO,
   UPDATE_PORTFOLIO,
   DELETE_PORTFOLIO,
-} from "@/apollo/queries";
+} from "apollo/queries";
 
 export const useGetPortfolios = () => useQuery(GET_PORTFOLIOS);
 export const useUpdatePortfolio = () => useMutation(UPDATE_PORTFOLIO);
