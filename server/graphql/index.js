@@ -21,9 +21,9 @@ export const createApolloServer = () => {
     createPortfolio(input: PortfolioInput): Portfolio
     updatePortfolio(id: ID, input: PortfolioInput): Portfolio
     deletePortfolio(id: ID): ID
-    singIn: String
-    singUp: String
-    singOut: String
+    signIn: String
+    signUp: String
+    signOut: String
   }`);
 
   // The root provides a resolver for each API endpoint
@@ -43,7 +43,7 @@ export const createApolloServer = () => {
     context: () => ({
       models: {
         Portfolio: new Portfolio(mongoose.model("Portfolio")),
-        User: new User(),
+        User: new User(mongoose.model("User")),
       },
     }),
   });

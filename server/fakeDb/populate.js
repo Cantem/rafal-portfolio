@@ -9,6 +9,8 @@ const populateDb = async () => {
     await mongoose.connect(mongoDbConfig.DB_URI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
+      useFindAndModify: false,
+      useCreateIndex: true,
     });
     console.log("Starting populating DB...");
     await fakeDb.populate();

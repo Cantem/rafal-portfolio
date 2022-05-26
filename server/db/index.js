@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import { mongoDbConfig } from "../config/dev.js";
 import "./models/portfolio.js";
+import "./models/user.js";
 
 export const connectDb = async () => {
   try {
@@ -8,6 +9,7 @@ export const connectDb = async () => {
       useNewUrlParser: true,
       useUnifiedTopology: true,
       useFindAndModify: false,
+      useCreateIndex: true,
     });
     console.log("Connected to DB");
   } catch (e) {

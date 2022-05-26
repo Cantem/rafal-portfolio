@@ -1,7 +1,7 @@
 export class User {
-  // constructor(model) {
-  //   this.Model = model;
-  // }
+  constructor(model) {
+    this.Model = model;
+  }
   signIn() {
     return "Signing In...";
   }
