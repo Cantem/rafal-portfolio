@@ -5,14 +5,15 @@ import {
   portfolioMutations,
   userMutations,
 } from "./resolvers/index.js";
-import { portfolioTypes } from "./types/index.js";
+import { portfolioTypes, userTypes } from "./types/index.js";
 import { Portfolio } from "./models/Portfolio.js";
 import { User } from "./models/User.js";
 
 export const createApolloServer = () => {
   // Construct a schema, using GRAPHQL schema language
   const typeDefs = gql(`
-  ${portfolioTypes}
+    ${portfolioTypes}
+    ${userTypes}
   type Query {
     portfolio(id: ID): Portfolio
     portfolios: [Portfolio]
@@ -22,7 +23,7 @@ export const createApolloServer = () => {
     updatePortfolio(id: ID, input: PortfolioInput): Portfolio
     deletePortfolio(id: ID): ID
     signIn: String
-    signUp: String
+    signUp(input: SignUpInput): String
     signOut: String
   }`);
 

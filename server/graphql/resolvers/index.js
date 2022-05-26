@@ -29,8 +29,9 @@ export const userMutations = {
   signIn: (root, args, ctx) => {
     return ctx.models.User.signIn();
   },
-  signUp: (root, args, ctx) => {
-    return ctx.models.User.signUp();
+  signUp: async (root, { input }, ctx) => {
+    const registeredUser = await ctx.models.User.signUp(input);
+    return registeredUser._id;
   },
   signOut: (root, args, ctx) => {
     return ctx.models.User.signOut();
