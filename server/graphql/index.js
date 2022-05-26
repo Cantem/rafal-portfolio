@@ -8,6 +8,7 @@ import {
 import { portfolioTypes, userTypes } from "./types/index.js";
 import { Portfolio } from "./models/Portfolio.js";
 import { User } from "./models/User.js";
+import { buildAuthContext } from "./context/index.js";
 
 export const createApolloServer = () => {
   // Construct a schema, using GRAPHQL schema language
@@ -22,7 +23,7 @@ export const createApolloServer = () => {
     createPortfolio(input: PortfolioInput): Portfolio
     updatePortfolio(id: ID, input: PortfolioInput): Portfolio
     deletePortfolio(id: ID): ID
-    signIn: String
+    signIn(input: SignInInput): String
     signUp(input: SignUpInput): String
     signOut: String
   }`);
@@ -42,6 +43,7 @@ export const createApolloServer = () => {
     typeDefs,
     resolvers,
     context: () => ({
+      ...buildAuthContext(),
       models: {
         Portfolio: new Portfolio(mongoose.model("Portfolio")),
         User: new User(mongoose.model("User")),

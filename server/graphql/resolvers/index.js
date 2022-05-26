@@ -26,8 +26,8 @@ export const portfolioMutations = {
 };
 
 export const userMutations = {
-  signIn: (root, args, ctx) => {
-    return ctx.models.User.signIn();
+  signIn: (root, { input }, ctx) => {
+    return ctx.models.User.signIn(input, ctx);
   },
   signUp: async (root, { input }, ctx) => {
     const registeredUser = await ctx.models.User.signUp(input);

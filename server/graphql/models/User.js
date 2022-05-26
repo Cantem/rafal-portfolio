@@ -2,8 +2,15 @@ export class User {
   constructor(model) {
     this.Model = model;
   }
-  signIn() {
-    return "Signing In...";
+
+  signIn(signInData, ctx) {
+    const isAuthenticated = ctx.authenticate(signInData);
+
+    if (isAuthenticated) {
+      console.log("User is Authenticated!");
+    }
+
+    return `Sign In Output!`;
   }
 
   signUp(signUpData) {
