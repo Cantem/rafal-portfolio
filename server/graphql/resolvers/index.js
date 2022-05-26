@@ -1,5 +1,3 @@
-import { Portfolio } from "../../db/models/portfolio.js";
-
 export const portfolioQueries = {
   portfolio: (root, { id }, ctx) => {
     return ctx.models.Portfolio.getById(id);
@@ -11,7 +9,7 @@ export const portfolioQueries = {
 
 export const portfolioMutations = {
   createPortfolio: async (root, { input }, ctx) => {
-    const createdPortfolio = await Portfolio.create(input);
+    const createdPortfolio = await ctx.models.Portfolio.create(input);
     return createdPortfolio;
   },
   updatePortfolio: async (root, { id, input }, ctx) => {
@@ -24,5 +22,17 @@ export const portfolioMutations = {
   deletePortfolio: async (root, { id }, ctx) => {
     const deletedPortfolio = await ctx.models.Portfolio.findAndDelete(id);
     return deletedPortfolio._id;
+  },
+};
+
+export const userMutations = {
+  signIn: (root, args, ctx) => {
+    return ctx.models.User.signIn();
+  },
+  signUp: (root, args, ctx) => {
+    return ctx.models.User.signUp();
+  },
+  signOut: (root, args, ctx) => {
+    return ctx.models.User.signOut();
   },
 };
