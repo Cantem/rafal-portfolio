@@ -1,7 +1,11 @@
 import mongoose from "mongoose";
+import session from "express-session";
+import { default as connectMongoDBSession } from "connect-mongodb-session";
 import { mongoDbConfig } from "../config/dev.js";
 import "./models/portfolio.js";
 import "./models/user.js";
+
+const MongoDBStore = connectMongoDBSession(session);
 
 export const connectDb = async () => {
   try {
@@ -13,6 +17,15 @@ export const connectDb = async () => {
     });
     console.log("Connected to DB");
   } catch (e) {
-    console.log("Error occured while connecting to MongoDB", e);
+    console.log("Error occured while connecting to database", e);
   }
+};
+
+export const initSessionStore = () => {
+  const store = new MongoDBStore({
+    uri: mongoDbConfig.DB_URI,
+    collection: "portfolioSessions",
+  });
+
+  return store;
 };
