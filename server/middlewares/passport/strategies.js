@@ -1,4 +1,4 @@
-import Strategy from "passport-strategy";
+import { Strategy } from "passport-strategy";
 
 // Strategy get options(email, password) needed to authenticate user
 // Strategy gets a callback function that will contain functionality to verify an user
