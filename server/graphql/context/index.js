@@ -10,8 +10,8 @@ const authenticateUser = (options) => {
     console.log("Calling done of authenticateUser");
   };
 
-  const authFn = passport.authenticate("graphql", options, done);
-  authFn();
+  const authFn = passport.authenticate("graphql", {}, done);
+  authFn(options);
 
   return true;
 };

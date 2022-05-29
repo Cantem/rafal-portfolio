@@ -16,7 +16,7 @@ export class GraphqlStrategy extends Strategy {
     this.name = "graphql";
   }
 
-  authenticate(_, options) {
+  authenticate(options) {
     console.log("Calling authenticate in strategy!");
 
     // in done we will receive "error", "user", "info"
