@@ -2,18 +2,22 @@ import passport from "passport";
 
 // options == {email, password}
 const authenticateUser = (options) => {
-  console.log("Calling authenticateUser");
+  return new Promise((resolve, reject) => {
+    const done = (error, user) => {
+      if (error) {
+        return reject(new Error(error));
+      }
 
-  const done = () => {
-    // Here we will get user if user is authenticated
-    // If we will get user we can save session to DB
-    console.log("Calling done of authenticateUser");
-  };
+      if (user) {
+        return resolve(user);
+      } else {
+        return reject(new Error("Invalid password or email!"));
+      }
+    };
 
-  const authFn = passport.authenticate("graphql", {}, done);
-  authFn(options);
-
-  return true;
+    const authFn = passport.authenticate("graphql", {}, done);
+    authFn(options);
+  });
 };
 
 export const buildAuthContext = () => {

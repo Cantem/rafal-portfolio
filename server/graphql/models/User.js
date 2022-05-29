@@ -3,14 +3,13 @@ export class User {
     this.Model = model;
   }
 
-  signIn(signInData, ctx) {
-    const isAuthenticated = ctx.authenticate(signInData);
-
-    if (isAuthenticated) {
-      console.log("User is Authenticated!");
+  async signIn(signInData, ctx) {
+    try {
+      const user = await ctx.authenticate(signInData);
+      return user;
+    } catch (error) {
+      return error;
     }
-
-    return `Sign In Output!`;
   }
 
   signUp(signUpData) {
