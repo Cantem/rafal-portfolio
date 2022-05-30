@@ -4,7 +4,7 @@ import { User } from "../../db/models/user.js";
 export const initializePassport = (passport) => {
   passport.use(
     "graphql",
-    new GraphqlStrategy(({ email }, done) => {
+    new GraphqlStrategy(({ email, password }, done) => {
       User.findOne({ email }, (error, user) => {
         if (error) {
           return done(error);
@@ -13,8 +13,16 @@ export const initializePassport = (passport) => {
           return done(null, false);
         }
 
-        // TODO: Check user password if its maching password from options
-        return done(null, user);
+        user.validatePassword(password, (error, isMatching) => {
+          if (error) {
+            return done(error);
+          }
+          if (!isMatching) {
+            return done(null, false);
+          }
+
+          return done(null, user);
+        });
       });
     })
   );
