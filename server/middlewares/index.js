@@ -20,4 +20,5 @@ export const initializeSession = (server) => {
 
   server.use(session(sessionObj));
   server.use(passport.initialize());
+  server.use(passport.session());
 };

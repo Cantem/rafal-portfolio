@@ -34,6 +34,8 @@ export const buildAuthContext = (req, next) => {
           return next(err);
         }
       }),
+    isAuthenticated: () => req.isAuthenticated(),
+    getUser: () => req.user,
   };
 
   return auth;
