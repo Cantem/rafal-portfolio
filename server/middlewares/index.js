@@ -19,9 +19,5 @@ export const initializeSession = (server) => {
   };
 
   server.use(session(sessionObj));
-
-  server.use((req, res, next) => {
-    req.helloWorld = () => console.log("HELLO WORLD!!!!!!!!!!");
-    next();
-  });
+  server.use(passport.initialize());
 };

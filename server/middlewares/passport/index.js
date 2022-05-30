@@ -2,6 +2,10 @@ import { GraphqlStrategy } from "./strategies.js";
 import { User } from "../../db/models/user.js";
 
 export const initializePassport = (passport) => {
+  passport.serializeUser((user, done) => {
+    done(null, user.id);
+  });
+
   passport.use(
     "graphql",
     new GraphqlStrategy(({ email, password }, done) => {
