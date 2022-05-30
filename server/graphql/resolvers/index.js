@@ -34,6 +34,6 @@ export const userMutations = {
     return registeredUser._id;
   },
   signOut: (root, args, ctx) => {
-    return ctx.models.User.signOut();
+    return ctx.models.User.signOut(ctx);
   },
 };

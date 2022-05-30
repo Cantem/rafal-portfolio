@@ -25,7 +25,7 @@ export const createApolloServer = () => {
     deletePortfolio(id: ID): ID
     signIn(input: SignInInput): User
     signUp(input: SignUpInput): String
-    signOut: String
+    signOut: Boolean
   }`);
 
   // The root provides a resolver for each API endpoint
@@ -42,8 +42,8 @@ export const createApolloServer = () => {
   const apolloServer = new ApolloServer({
     typeDefs,
     resolvers,
-    context: ({ req }) => ({
-      ...buildAuthContext(req),
+    context: ({ req, next }) => ({
+      ...buildAuthContext(req, next),
       models: {
         Portfolio: new Portfolio(mongoose.model("Portfolio")),
         User: new User(mongoose.model("User")),

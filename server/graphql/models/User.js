@@ -20,7 +20,12 @@ export class User {
     return this.Model.create(signUpData);
   }
 
-  signOut() {
-    return "Signing Out...";
+  signOut(ctx) {
+    try {
+      ctx.logout();
+      return true;
+    } catch (e) {
+      return false;
+    }
   }
 }
