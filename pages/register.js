@@ -16,7 +16,11 @@ const Register = () => {
         <div className="row">
           <div className="col-md-5 mx-auto">
             <h1 className="page-title">Register</h1>
-            <Mutation mutation={SIGN_UP}>
+            <Mutation
+              mutation={SIGN_UP}
+              // TODO fix workaround for undhandled error thrown in the UI
+              onError={() => {}}
+            >
               {(signUpUser, { data, error }) => (
                 <>
                   <RegisterForm
