@@ -37,3 +37,9 @@ export const userMutations = {
     return ctx.models.User.signOut(ctx);
   },
 };
+
+export const userQueries = {
+  user: (root, args, ctx) => {
+    return ctx.models.User.getAuthUser(ctx);
+  },
+};

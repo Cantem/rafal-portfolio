@@ -4,6 +4,7 @@ import {
   portfolioQueries,
   portfolioMutations,
   userMutations,
+  userQueries,
 } from "./resolvers/index.js";
 import { portfolioTypes, userTypes } from "./types/index.js";
 import { Portfolio } from "./models/Portfolio.js";
@@ -18,6 +19,7 @@ export const createApolloServer = () => {
   type Query {
     portfolio(id: ID): Portfolio
     portfolios: [Portfolio]
+    user: User
   }
   type Mutation {
     createPortfolio(input: PortfolioInput): Portfolio
@@ -32,6 +34,7 @@ export const createApolloServer = () => {
   const resolvers = {
     Query: {
       ...portfolioQueries,
+      ...userQueries,
     },
     Mutation: {
       ...portfolioMutations,
