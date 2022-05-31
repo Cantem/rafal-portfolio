@@ -2,10 +2,12 @@ import RegisterForm from "../components/forms/RegisterForm.js";
 import { Mutation } from "@apollo/react-components";
 import { SIGN_UP } from "apollo/queries/index.js";
 import withApollo from "hoc/withApollo.js";
+import Redirect from "components/shared/Redirect.js";
 
 const Register = () => {
-  const register = (registerData) => {
-    alert(JSON.stringify(registerData));
+  // TODO: Handle DB Errors!
+  const errorMessage = (error) => {
+    return error.message || "Ooooops something went wrong...";
   };
 
   return (
@@ -22,6 +24,12 @@ const Register = () => {
                       signUpUser({ variables: registerData });
                     }}
                   />
+                  {data && data.signUp && <Redirect to="/login" />}
+                  {error && (
+                    <div className="alert alert-danger">
+                      {errorMessage(error)}
+                    </div>
+                  )}
                 </>
               )}
             </Mutation>
