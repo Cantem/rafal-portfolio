@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Navbar, Nav } from "react-bootstrap";
+import { Navbar, Nav, NavDropdown } from "react-bootstrap";
 import Link from "next/link";
 import withApollo from "hoc/withApollo";
 import { useLazyGetUser } from "apollo/actions";
@@ -54,7 +54,26 @@ const AppNavbar = () => {
             <Nav>
               {user && (
                 <>
-                  <span className="nav-link mr-4">Welcome {user.username}</span>
+                  <span className="nav-link mr-2">WELCOME {user.username}</span>
+                  <NavDropdown
+                    className="mr-3"
+                    title="MANAGE"
+                    id="basic-nav-dropdown"
+                  >
+                    {user.role === "admin" && (
+                      <AppLink href="/portfolios/new" className="dropdown-item">
+                        CREATE PORTFOLIO
+                      </AppLink>
+                    )}
+                    <NavDropdown.Item href="#action/3.2">
+                      ACTION1
+                    </NavDropdown.Item>
+                    <NavDropdown.Item href="#action/3.3">
+                      ACTION2
+                    </NavDropdown.Item>
+                    <NavDropdown.Divider />
+                    <NavDropdown.Item href="#action/3.4">LINK</NavDropdown.Item>
+                  </NavDropdown>
                   <AppLink href="/logout" className="nav-link btn btn-danger">
                     SIGN OUT
                   </AppLink>
