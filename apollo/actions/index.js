@@ -35,6 +35,12 @@ export const useCreatePortfolio = () =>
 
 export const useSignIn = () =>
   useMutation(SIGN_IN, {
+    update(cache, { data: { signIn: signedInUser } }) {
+      cache.writeQuery({
+        query: GET_USER,
+        data: { user: signedInUser },
+      });
+    },
     onError: () => {},
   });
 
