@@ -1,12 +1,20 @@
 import LoginForm from "components/forms/LoginForm";
 import withApollo from "hoc/withApollo";
-import { Mutation } from "@apollo/react-components";
-import { SIGN_IN } from "apollo/queries/index.js";
+import { useSignIn } from "apollo/actions";
 import Redirect from "components/shared/Redirect.js";
 
 const Login = () => {
+  const [signIn, { data, error }] = useSignIn();
   const errorMessage = (error) => {
     return error.message || "Ooooops something went wrong...";
+  };
+
+  const handleOnSubmit = async (signInData) => {
+    try {
+      await signIn({ variables: signInData });
+    } catch (e) {
+      throw e;
+    }
   };
 
   return (
@@ -15,25 +23,11 @@ const Login = () => {
         <div className="row">
           <div className="col-md-5 mx-auto">
             <h1 className="page-title">Login</h1>
-            <Mutation
-              mutation={SIGN_IN}
-              // TODO fix workaround for undhandled error thrown in the UI
-              onError={() => {}}
-            >
-              {(signIn, { data, error }) => (
-                <>
-                  <LoginForm
-                    onSubmit={(signInData) => signIn({ variables: signInData })}
-                  />
-                  {data && data.signIn && <Redirect to="/" />}
-                  {error && (
-                    <div className="alert alert-danger">
-                      {errorMessage(error)}
-                    </div>
-                  )}
-                </>
-              )}
-            </Mutation>
+            <LoginForm onSubmit={(signInData) => handleOnSubmit(signInData)} />
+            {data && data.signIn && <Redirect to="/" />}
+            {error && (
+              <div className="alert alert-danger">{errorMessage(error)}</div>
+            )}
           </div>
         </div>
       </div>

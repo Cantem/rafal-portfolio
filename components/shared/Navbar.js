@@ -46,14 +46,6 @@ const AppNavbar = () => {
               CV
             </AppLink>
           </Nav>
-          {/* <Nav>
-            <AppLink href="/login" className="mr-3 nav-link">
-              SIGN IN
-            </AppLink>
-            <AppLink href="/register" className="mr-3 btn btn-primary">
-              SING UP
-            </AppLink>
-          </Nav> */}
           {hasResponse && (
             <Nav>
               {user && (
