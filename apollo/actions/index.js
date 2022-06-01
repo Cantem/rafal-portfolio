@@ -52,4 +52,6 @@ export const useSignUp = () =>
 
 export const useSignOut = () => useMutation(SIGN_OUT);
 
+export const useGetUser = () => useQuery(GET_USER);
+
 export const useLazyGetUser = () => useLazyQuery(GET_USER);
