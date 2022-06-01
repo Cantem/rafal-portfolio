@@ -7,6 +7,7 @@ import {
   GET_USER,
   SIGN_IN,
   SIGN_UP,
+  SIGN_OUT,
 } from "apollo/queries";
 
 export const useGetPortfolios = () => useQuery(GET_PORTFOLIOS);
@@ -48,5 +49,7 @@ export const useSignUp = () =>
   useMutation(SIGN_UP, {
     onError: () => {},
   });
+
+export const useSignOut = () => useMutation(SIGN_OUT);
 
 export const useLazyGetUser = () => useLazyQuery(GET_USER);

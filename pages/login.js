@@ -4,7 +4,7 @@ import { useSignIn } from "apollo/actions";
 import Redirect from "components/shared/Redirect.js";
 
 const Login = () => {
-  const [signIn, { data, error }] = useSignIn();
+  const [signIn, { data, error, loading }] = useSignIn();
   const errorMessage = (error) => {
     return error.message || "Ooooops something went wrong...";
   };
@@ -23,7 +23,10 @@ const Login = () => {
         <div className="row">
           <div className="col-md-5 mx-auto">
             <h1 className="page-title">Login</h1>
-            <LoginForm onSubmit={(signInData) => handleOnSubmit(signInData)} />
+            <LoginForm
+              loading={loading}
+              onSubmit={(signInData) => handleOnSubmit(signInData)}
+            />
             {data && data.signIn && <Redirect to="/" />}
             {error && (
               <div className="alert alert-danger">{errorMessage(error)}</div>
