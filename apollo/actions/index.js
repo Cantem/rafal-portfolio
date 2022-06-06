@@ -23,6 +23,7 @@ export const useDeletePortfolio = () =>
       });
     },
   });
+
 export const useCreatePortfolio = () =>
   useMutation(CREATE_PORTFOLIO, {
     update(cache, { data: { createPortfolio } }) {
@@ -32,6 +33,7 @@ export const useCreatePortfolio = () =>
         data: { portfolios: [...portfolios, createPortfolio] },
       });
     },
+    onError: () => {},
   });
 
 export const useSignIn = () =>

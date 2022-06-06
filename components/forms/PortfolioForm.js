@@ -33,6 +33,7 @@ const PortfolioForm = ({ onSubmit }) => {
           type="text"
           className="form-control"
           id="title"
+          required
         />
       </div>
 
@@ -44,6 +45,19 @@ const PortfolioForm = ({ onSubmit }) => {
           type="text"
           className="form-control"
           id="company"
+          required
+        />
+      </div>
+
+      <div className="form-group">
+        <label htmlFor="city">Company Website</label>
+        <input
+          {...register("companyWebsite")}
+          name="companyWebsite"
+          type="text"
+          className="form-control"
+          id="companyWebsite"
+          required
         />
       </div>
 
@@ -55,6 +69,7 @@ const PortfolioForm = ({ onSubmit }) => {
           type="text"
           className="form-control"
           id="location"
+          required
         />
       </div>
 
@@ -66,6 +81,7 @@ const PortfolioForm = ({ onSubmit }) => {
           type="text"
           className="form-control"
           id="jobTitle"
+          required
         />
       </div>
 
@@ -78,6 +94,7 @@ const PortfolioForm = ({ onSubmit }) => {
           type="text"
           className="form-control"
           id="description"
+          required
         ></textarea>
       </div>
 
@@ -95,6 +112,7 @@ const PortfolioForm = ({ onSubmit }) => {
               showYearDropdown
               selected={startDate}
               onChange={handleDateChange("startDate", setStartDate)}
+              required
             />
           )}
         />
