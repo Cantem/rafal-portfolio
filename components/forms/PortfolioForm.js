@@ -1,7 +1,27 @@
-import { useForm } from "react-hook-form";
+import { useState, useEffect } from "react";
+import { Controller, useForm } from "react-hook-form";
+import DatePicker from "react-datepicker";
+
+// todo fix workaround to import default
+const ReactDatePicker = DatePicker.default;
 
 const PortfolioForm = ({ onSubmit }) => {
-  const { handleSubmit, register } = useForm();
+  const { handleSubmit, register, control, setValue } = useForm();
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date());
+
+  useEffect(() => {
+    register("startDate");
+    register("endDate");
+  }, [register]);
+
+  const handleDateChange = (dateType, setDate) => (date) => {
+    setValue(
+      dateType,
+      (date && new Date(date.setHours(0, 0, 0, 0)).toISOString()) || date
+    );
+    setDate(date);
+  };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -61,26 +81,63 @@ const PortfolioForm = ({ onSubmit }) => {
         ></textarea>
       </div>
 
-      <div className="form-group">
-        <label htmlFor="street">Start Date</label>
-        <input
-          {...register("startDate")}
+      <div className="form-group customDatePickerWidth">
+        <label className="col-form-label" htmlFor="street">
+          Start Date
+        </label>
+        <Controller
+          control={control}
           name="startDate"
-          type="text"
-          className="form-control"
-          id="startDate"
+          render={() => (
+            <ReactDatePicker
+              className="form-control"
+              label="Start Date"
+              showYearDropdown
+              selected={startDate}
+              onChange={handleDateChange("startDate", setStartDate)}
+            />
+          )}
+        />
+      </div>
+
+      <div className="form-group customDatePickerWidth">
+        <label className="col-form-label" htmlFor="street">
+          End Date
+        </label>
+        <Controller
+          control={control}
+          name="endDate"
+          render={() => (
+            <ReactDatePicker
+              className="form-control"
+              showYearDropdown
+              selected={endDate}
+              disabled={!endDate}
+              onChange={handleDateChange("endDate", setEndDate)}
+            />
+          )}
         />
       </div>
 
       <div className="form-group">
-        <label htmlFor="street">End Date</label>
-        <input
-          {...register("endDate")}
-          name="endDate"
-          type="text"
-          className="form-control"
-          id="endDate"
-        />
+        {endDate && (
+          <button
+            type="button"
+            className="btn btn-danger"
+            onClick={() => handleDateChange("endDate", setEndDate)(null)}
+          >
+            No End Date
+          </button>
+        )}
+        {!endDate && (
+          <button
+            type="button"
+            className="btn btn-success"
+            onClick={() => handleDateChange("endDate", setEndDate)(new Date())}
+          >
+            Set End Date
+          </button>
+        )}
       </div>
 
       <button type="submit" className="btn btn-primary">
