@@ -2,6 +2,7 @@ import RegisterForm from "../components/forms/RegisterForm.js";
 import { useSignUp } from "apollo/actions/index.js";
 import withApollo from "hoc/withApollo.js";
 import Redirect from "components/shared/Redirect.js";
+import BaseLayout from "layouts/BaseLayout.js";
 
 const Register = () => {
   const [signUp, { data, error }] = useSignUp();
@@ -18,7 +19,7 @@ const Register = () => {
   };
 
   return (
-    <>
+    <BaseLayout>
       <div className="bwm-form mt-5">
         <div className="row">
           <div className="col-md-5 mx-auto">
@@ -33,7 +34,7 @@ const Register = () => {
           </div>
         </div>
       </div>
-    </>
+    </BaseLayout>
   );
 };
 
