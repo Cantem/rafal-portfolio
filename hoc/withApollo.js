@@ -7,6 +7,7 @@ import {
   from,
 } from "@apollo/client";
 import { onError } from "@apollo/client/link/error";
+import moment from "moment";
 
 const httpLink = new HttpLink({
   uri: "http://localhost:3000/graphql",
@@ -37,6 +38,19 @@ export default withApollo(
       },
       link: from([errorLink, httpLink]),
       cache: new InMemoryCache().restore(initialState || {}),
+      resolvers: {
+        Portfolio: {
+          daysOfExperience({ startDate, endDate }, args, { cache }) {
+            let now = moment().unix();
+
+            if (endDate) {
+              now = endDate / 1000;
+            }
+
+            return moment.unix(now).diff(moment.unix(startDate / 1000), "days");
+          },
+        },
+      },
     });
   },
   {
