@@ -5,8 +5,10 @@ import DatePicker from "react-datepicker";
 // todo fix workaround to import default
 const ReactDatePicker = DatePicker.default;
 
-const PortfolioForm = ({ onSubmit }) => {
-  const { handleSubmit, register, control, setValue } = useForm();
+const PortfolioForm = ({ onSubmit, initialData = {} }) => {
+  const { handleSubmit, register, control, setValue } = useForm({
+    defaultValues: initialData,
+  });
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
 
@@ -14,6 +16,18 @@ const PortfolioForm = ({ onSubmit }) => {
     register("startDate");
     register("endDate");
   }, [register]);
+
+  useEffect(() => {
+    const { startDate, endDate } = initialData;
+
+    if (startDate) {
+      setStartDate(new Date(parseInt(startDate, 10)));
+    }
+
+    if (endDate) {
+      setEndDate(new Date(parseInt(endDate, 10)));
+    }
+  }, [initialData]);
 
   const handleDateChange = (dateType, setDate) => (date) => {
     setValue(
