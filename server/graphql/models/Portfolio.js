@@ -3,6 +3,7 @@ export class Portfolio {
     // this.Model === Portfolio
     this.Model = model;
     this.user = user;
+    this.writePermissions = ["instructor", "admin"];
   }
 
   getAll() {
@@ -14,7 +15,7 @@ export class Portfolio {
   }
 
   create(data) {
-    if (!this.user) {
+    if (!this.user || !this.writePermissions.includes(this.user.role)) {
       throw new Error("Not Authorised!!!");
     }
 
