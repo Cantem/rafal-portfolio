@@ -77,14 +77,6 @@ const AppNavbar = () => {
                         </AppLink>
                       </>
                     )}
-                    <NavDropdown.Item href="#action/3.2">
-                      ACTION1
-                    </NavDropdown.Item>
-                    <NavDropdown.Item href="#action/3.3">
-                      ACTION2
-                    </NavDropdown.Item>
-                    <NavDropdown.Divider />
-                    <NavDropdown.Item href="#action/3.4">LINK</NavDropdown.Item>
                   </NavDropdown>
                   <AppLink href="/logout" className="nav-link btn btn-danger">
                     SIGN OUT
