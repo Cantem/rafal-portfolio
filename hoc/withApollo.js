@@ -25,8 +25,16 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
 });
 
 export default withApollo(
-  ({ initialState }) => {
+  ({ initialState, headers }) => {
     return new ApolloClient({
+      request: (operation) => {
+        operation.setContext({
+          fetchOptions: {
+            credentials: "include",
+          },
+          headers,
+        });
+      },
       link: from([errorLink, httpLink]),
       cache: new InMemoryCache().restore(initialState || {}),
     });
