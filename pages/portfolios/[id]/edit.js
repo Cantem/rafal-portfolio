@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
+import { toast } from "react-toastify";
 import PortfolioForm from "components/forms/PortfolioForm";
 import withApollo from "hoc/withApollo";
 import withAuth from "hoc/withAuth";
@@ -20,7 +21,7 @@ const PortfolioEdit = () => {
   const handleUpdatePortfolio = async (data) => {
     try {
       const result = await updatePortfolio({ variables: { id, ...data } });
-      router.push("/portfolios");
+      toast.success("Portfolio has been updated!", { autoClose: 3000 });
       if (result.errors) {
         setError(result.errors);
       }
