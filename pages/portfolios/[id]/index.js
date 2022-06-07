@@ -13,7 +13,7 @@ const PortfolioDetail = ({ query }) => {
       <div className="portfolio-detail">
         <div className="container">
           <div className="jumbotron">
-            <h1 className="display-3">{portfolio.title}</h1>
+            <h1 className="display-4">{portfolio.title}</h1>
             <p className="lead">{portfolio.jobTitle}</p>
             <p>
               <a
