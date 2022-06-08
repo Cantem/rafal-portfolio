@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import { useRouter } from "next/router";
 import LoginForm from "components/forms/LoginForm";
 import withApollo from "hoc/withApollo";
@@ -7,9 +8,27 @@ import BaseLayout from "layouts/BaseLayout";
 import messages from "utils/constants";
 
 const Login = () => {
+  const disposeId = useRef(null);
   const [signIn, { data, error, loading }] = useSignIn();
   const router = useRouter();
   const { message } = router.query;
+
+  const disposeMessage = () => {
+    router.replace("/login", "/login", { shallow: true });
+  };
+
+  useEffect(() => {
+    if (message) {
+      disposeId.current = setTimeout(() => {
+        disposeMessage();
+      }, 3000);
+    }
+
+    return () => {
+      clearTimeout(disposeId.current);
+    };
+  }, [message]);
+
   const errorMessage = (error) => {
     return error.message || "Ooooops something went wrong...";
   };

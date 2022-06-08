@@ -27,7 +27,9 @@ const Register = () => {
             <RegisterForm
               onSubmit={(singUpData) => handleOnSubmit(singUpData)}
             />
-            {data && data.signUp && <Redirect to="/login" />}
+            {data && data.signUp && (
+              <Redirect to="/login" query={{ message: "LOGGED_IN" }} />
+            )}
             {error && (
               <div className="alert alert-danger">{errorMessage(error)}</div>
             )}
