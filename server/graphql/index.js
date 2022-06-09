@@ -5,10 +5,12 @@ import {
   portfolioMutations,
   userMutations,
   userQueries,
+  forumQueries,
 } from "./resolvers/index.js";
-import { portfolioTypes, userTypes } from "./types/index.js";
+import { portfolioTypes, userTypes, forumTypes } from "./types/index.js";
 import { Portfolio } from "./models/Portfolio.js";
 import { User } from "./models/User.js";
+import { ForumCategory } from "./models/forumCategory.js";
 import { buildAuthContext } from "./context/index.js";
 
 export const createApolloServer = () => {
@@ -16,11 +18,13 @@ export const createApolloServer = () => {
   const typeDefs = gql(`
     ${portfolioTypes}
     ${userTypes}
+    ${forumTypes}
   type Query {
     portfolio(id: ID): Portfolio
     portfolios: [Portfolio]
     userPortfolios: [Portfolio]
     user: User
+    forumCategories: [ForumCategory]
   }
   type Mutation {
     createPortfolio(input: PortfolioInput): Portfolio
@@ -36,6 +40,7 @@ export const createApolloServer = () => {
     Query: {
       ...portfolioQueries,
       ...userQueries,
+      ...forumQueries,
     },
     Mutation: {
       ...portfolioMutations,
@@ -51,6 +56,7 @@ export const createApolloServer = () => {
       models: {
         Portfolio: new Portfolio(mongoose.model("Portfolio"), req.user),
         User: new User(mongoose.model("User")),
+        ForumCategory: new ForumCategory(mongoose.model("ForumCategory")),
       },
     }),
   });

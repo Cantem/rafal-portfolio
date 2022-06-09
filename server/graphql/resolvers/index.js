@@ -46,3 +46,9 @@ export const userQueries = {
     return ctx.models.User.getAuthUser(ctx);
   },
 };
+
+export const forumQueries = {
+  forumCategories: (root, args, ctx) => {
+    return ctx.models.ForumCategory.getAll();
+  },
+};

@@ -44,3 +44,12 @@ export const userTypes = `
     password: String!
   }
 `;
+
+export const forumTypes = `
+type ForumCategory {
+  _id: ID
+  title: String
+  subTitle: String
+  slug: String
+}
+`;
