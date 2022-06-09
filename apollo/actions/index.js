@@ -11,6 +11,7 @@ import {
   SIGN_UP,
   SIGN_OUT,
   FORUM_CATEGORIES,
+  TOPICS_BY_CATEGORY,
 } from "apollo/queries";
 
 export const useGetPortfolio = (options) => useQuery(GET_PORTFOLIO, options);
@@ -64,3 +65,5 @@ export const useGetUser = () => useQuery(GET_USER);
 export const useLazyGetUser = () => useLazyQuery(GET_USER);
 
 export const useGetForumCategories = () => useQuery(FORUM_CATEGORIES);
+export const useGetTopicsByCategory = (options) =>
+  useQuery(TOPICS_BY_CATEGORY, options);
