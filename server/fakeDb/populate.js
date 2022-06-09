@@ -4,7 +4,7 @@ import FakeDb from "./FakeDb.js";
 
 const fakeDb = new FakeDb();
 
-const populateDb = async () => {
+export const populateDb = async () => {
   try {
     await mongoose.connect(mongoDbConfig.DB_URI, {
       useNewUrlParser: true,
@@ -20,4 +20,3 @@ const populateDb = async () => {
     console.log("Error occured while populating data to MongoDB", e);
   }
 };
-populateDb();
