@@ -5,6 +5,7 @@ import { mongoDbConfig } from "../config/dev.js";
 import "./models/portfolio.js";
 import "./models/user.js";
 import "./models/forumCategory.js";
+import "./models/topic.js";
 
 const MongoDBStore = connectMongoDBSession(session);
 

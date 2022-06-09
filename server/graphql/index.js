@@ -10,7 +10,8 @@ import {
 import { portfolioTypes, userTypes, forumTypes } from "./types/index.js";
 import { Portfolio } from "./models/Portfolio.js";
 import { User } from "./models/User.js";
-import { ForumCategory } from "./models/forumCategory.js";
+import { ForumCategory } from "./models/ForumCategory.js";
+import { Topic } from "./models/Topic.js";
 import { buildAuthContext } from "./context/index.js";
 
 export const createApolloServer = () => {
@@ -25,6 +26,7 @@ export const createApolloServer = () => {
     userPortfolios: [Portfolio]
     user: User
     forumCategories: [ForumCategory]
+    topicsByCategory(category: String): [Topic]
   }
   type Mutation {
     createPortfolio(input: PortfolioInput): Portfolio
@@ -57,6 +59,7 @@ export const createApolloServer = () => {
         Portfolio: new Portfolio(mongoose.model("Portfolio"), req.user),
         User: new User(mongoose.model("User")),
         ForumCategory: new ForumCategory(mongoose.model("ForumCategory")),
+        Topic: new Topic(mongoose.model("Topic")),
       },
     }),
   });
