@@ -171,3 +171,13 @@ export const GET_USER = gql`
     }
   }
 `;
+
+export const FORUM_CATEGORIES = gql`
+  query ForumCategories {
+    forumCategories {
+      slug
+      title
+      subTitle
+    }
+  }
+`;

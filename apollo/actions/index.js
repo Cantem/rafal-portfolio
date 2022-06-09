@@ -10,11 +10,13 @@ import {
   SIGN_IN,
   SIGN_UP,
   SIGN_OUT,
+  FORUM_CATEGORIES,
 } from "apollo/queries";
 
 export const useGetPortfolio = (options) => useQuery(GET_PORTFOLIO, options);
 export const useGetPortfolios = () => useQuery(GET_PORTFOLIOS);
 export const useGetUserPortfolios = () => useQuery(GET_USER_PORTFOLIOS);
+
 export const useUpdatePortfolio = () => useMutation(UPDATE_PORTFOLIO);
 export const useDeletePortfolio = () =>
   useMutation(DELETE_PORTFOLIO, {
@@ -31,7 +33,6 @@ export const useDeletePortfolio = () =>
       });
     },
   });
-
 export const useCreatePortfolio = () =>
   useMutation(CREATE_PORTFOLIO, {
     update(cache, { data: { createPortfolio } }) {
@@ -54,14 +55,12 @@ export const useSignIn = () =>
     },
     onError: () => {},
   });
-
 export const useSignUp = () =>
   useMutation(SIGN_UP, {
     onError: () => {},
   });
-
 export const useSignOut = () => useMutation(SIGN_OUT);
-
 export const useGetUser = () => useQuery(GET_USER);
-
 export const useLazyGetUser = () => useLazyQuery(GET_USER);
+
+export const useGetForumCategories = () => useQuery(FORUM_CATEGORIES);
