@@ -6,6 +6,7 @@ import {
   userMutations,
   userQueries,
   forumQueries,
+  forumMutations,
 } from "./resolvers/index.js";
 import { portfolioTypes, userTypes, forumTypes } from "./types/index.js";
 import { Portfolio } from "./models/Portfolio.js";
@@ -35,6 +36,7 @@ export const createApolloServer = () => {
     signIn(input: SignInInput): User
     signUp(input: SignUpInput): String
     signOut: Boolean
+    createTopic(input: TopicInput): Topic
   }`);
 
   // The root provides a resolver for each API endpoint
@@ -47,6 +49,7 @@ export const createApolloServer = () => {
     Mutation: {
       ...portfolioMutations,
       ...userMutations,
+      ...forumMutations,
     },
   };
 
@@ -59,7 +62,7 @@ export const createApolloServer = () => {
         Portfolio: new Portfolio(mongoose.model("Portfolio"), req.user),
         User: new User(mongoose.model("User")),
         ForumCategory: new ForumCategory(mongoose.model("ForumCategory")),
-        Topic: new Topic(mongoose.model("Topic")),
+        Topic: new Topic(mongoose.model("Topic"), req.user),
       },
     }),
   });

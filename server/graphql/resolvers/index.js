@@ -60,3 +60,10 @@ export const forumQueries = {
     return ctx.models.Topic.getAllByCategory(forumCategory._id);
   },
 };
+
+export const forumMutations = {
+  createTopic: async (root, { input }, ctx) => {
+    const topic = await ctx.models.Topic.create(input);
+    return topic;
+  },
+};
